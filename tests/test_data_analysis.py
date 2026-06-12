@@ -8,7 +8,6 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from data_analysis import clean_data, analyse
 
-
 # some fake data to use in the tests
 @pytest.fixture
 def sample_df():
