@@ -29,9 +29,7 @@ jobs:
 
       - name: run flake8
         run: |
-          # fail the build if there are actual errors like syntax issues
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          # just warn for style stuff, dont fail
           flake8 . --count --exit-zero --max-line-length=120 --statistics
 
   test:
@@ -71,6 +69,7 @@ jobs:
         with:
           context: .
           push: false
+          load: true
           tags: ${{ env.IMAGE_NAME }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -126,7 +125,6 @@ jobs:
         run: |
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
 
-          # create a small test csv so the script has something to work with
           cat > /tmp/All_Diets.csv << 'EOF'
           Diet_type,Recipe_name,Cuisine_type,Protein(g),Carbs(g),Fat(g),Extraction_day
           Paleo,Bone Broth,american,5.22,1.29,3.2,10/16/2022
